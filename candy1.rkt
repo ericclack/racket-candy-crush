@@ -27,10 +27,10 @@
                 (candy-posns candy)
                 scene))
 
-(define (render-world w)
+(define (draw-world w)
   (candy+scene (world-candy w) 
                (empty-scene (* WIDTH BLOCK-SIZE)
-                            (* HEIGHT BLOCK-SIZE) "black")))
+                            (* HEIGHT BLOCK-SIZE) "black"))
 
 (big-bang (world (list 1 2 3 null 5 1 2 3 4 5 6 7) null)            
-            (to-draw render-world))
+            (to-draw draw-world))
