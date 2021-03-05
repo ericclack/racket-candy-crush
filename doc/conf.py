@@ -21,7 +21,7 @@
 
 project = 'Racket Candy Crush Tutorial'
 copyright = '2021, Eric Clack'
-author = 'Eric Clack'
+author = 'Eric Clack <eric@bn7.net>'
 
 # The short X.Y version
 version = ''
@@ -68,6 +68,11 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
+# Include RST content at the end of every file,
+# useful for making variables here appear in documents
+rst_epilog = """
+.. |author| replace:: {author}
+""".format(author=author)
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -80,7 +85,13 @@ html_theme = 'alabaster'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'show_powered_by': False,
+    'github_user': 'ericclack',
+    'github_repo': 'racket-candy-crush',
+    'github_banner': True,
+    'show_related': False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -96,6 +107,7 @@ html_static_path = ['_static']
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
+
 
 
 # -- Options for HTMLHelp output ---------------------------------------------

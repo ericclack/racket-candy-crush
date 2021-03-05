@@ -4,8 +4,8 @@
 (require lang/posn)
 (require racket/format)
 
-(define WIDTH 10)
-(define HEIGHT 15)
+(define WIDTH 8)
+(define HEIGHT 12)
 (define BLOCK-SIZE 40)
 
 (struct world (candy cursor) #:transparent)
