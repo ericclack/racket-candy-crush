@@ -71,9 +71,9 @@ Now on the left hand side, type in the following code:
    (require 2htdp/universe)
    (require 2htdp/image)
 
-   (define WIDTH 10)
-   (define HEIGHT 8)
-   (define BLOCK-SIZE 10)
+   (define WIDTH 8)
+   (define HEIGHT 10)
+   (define BLOCK-SIZE 40)
 
    (define (draw-world w)
      (empty-scene (* WIDTH BLOCK-SIZE)
@@ -121,7 +121,9 @@ follows we've highlighted the new code in yellow.
 
    (struct world (candy cursor))
 
-And then we can use this when we create our game with `big-bang`:
+
+So our world is some `candy` and a `cursor`. Now we can add a list of
+candy when we create our game with `big-bang`:
    
 .. code-block:: racket
    :emphasize-lines: 2
@@ -176,3 +178,89 @@ for the code above it looks like this:
 
 This nesting is very common in Racket, and in fact all programming languages,
 so it is good to recognise.
+
+Drawing the tiles
+-----------------
+
+So how do we actually draw the tiles? Let's see first if we can get one tile
+on the screen.
+
+In the REPL, type this code in:
+
+.. code:: racket
+
+   (bitmap/file "images/1.png")
+
+You should see a light blue tile in the REPL. You can try different numbers,
+there are tiles all the way up to 8.
+
+So let's use this in our new function :code:`candy+scene`:
+
+.. code:: racket
+
+   (define (candy+scene candy scene)
+     (place-image (bitmap/file "images/1.png")
+		  0 0 
+		  scene))
+      
+When you run this you'll see that the image is just visible, but half
+off the top of the screen. Let's fix that...
+
+.. code-block:: racket
+   :emphasize-lines: 3
+
+   (define (candy+scene candy scene)
+     (place-image (bitmap/file "images/1.png")
+		  (/ BLOCK-SIZE 2) (/ BLOCK-SIZE 2) 
+		  scene))
+
+OK, so we've drawn one tile, not very impressive yet! Looking
+back at our world, we actually have 3 tiles: :code:`(list 1 2 3)`
+so how do we draw these?
+
+We need to do two things:
+
+1. Map the numbers to the images
+2. Work out the position of each tile.
+
+We can do both these things with functions, let's work on the images first.
+
+So we need to turn a number into something like :code:`(bitmap/file "images/1.png")`
+
+Add this function under your :code:`world` struct:
+
+.. code:: racket
+
+   (define (candy->bitmap number)
+	  (bitmap/file "images/1.png"))
+
+Run your code, then in the REPL try this out:
+
+.. code:: racket
+
+   (candy->bitmap 1)
+
+   (candy->bitmap 3)
+
+   (candy->bitmap 8)
+
+Ah, so it always produces the same tile, that's because we don't use
+the :code:`number` argument. Here's how we get the number in the file
+name:
+
+.. code-block:: racket
+   :emphasize-lines: 2
+
+   (define (candy->bitmap number)
+	  (bitmap/file (string-append "images/" (number->string number) ".png")))
+
+Again, run your code, then in the REPL try these lines out again:
+
+.. code:: racket
+
+   (candy->bitmap 1)
+
+   (candy->bitmap 3)
+
+   (candy->bitmap 8)
+	  
