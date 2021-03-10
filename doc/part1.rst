@@ -1,64 +1,7 @@
-.. _why:
+.. _part1:
 
 Part 1
 ======
-
-A little introduction to Racket
--------------------------------
-
-Start up DrRacket and you'll see two panels. On the left side you can
-write your program and on the right side you have a REPL (pronounced
-repple) where you can try things out.
-
-Let's try some things out now so that you can get a little familiar
-with Racket.
-
-At the top of the panel you'll see something like this:
-
-.. code:: racket
-
-   Welcome to DrRacket, version 7.7 [3m].
-   Language: racket, with debugging; memory limit: 128 MB.
-   > 
-
-That :code:`>` prompt is inviting you to type something in. So let's
-try it out, enter each line below, pressing enter after each one.
-
-.. code:: racket
-
-   (+ 5 7)
-
-   (* 2 3 4)
-
-You should see the results `12` and `24`. Now try these:
-
-.. code:: racket
-
-   (string-append "hello" "world")
-
-   (range 100)
-	  
-You should see `helloworld` (with no space) and a long list of numbers
-from 0 to 99. 
-
-So that second function returns a list. Lists are very common in Racket,
-what can we do with them? Let's try a few things...
-
-.. code:: racket
-
-   (reverse (range 10))
-
-   (shuffle (range 10))
-
-   (group-by odd? (range 10))
-
-Did you notice that these all return lists too? And that the
-`group-by` function returns a list with lists inside it.
-
-If you want to find out more about a function you can click on it and
-press F1, or use the blue help arrow at the top right of the panel. Racket
-has excellent built in documentation.
-
 
 Let's create our first program
 ------------------------------
@@ -225,6 +168,9 @@ We need to do two things:
 
 We can do both these things with functions, let's work on the images first.
 
+From numbers to images
+......................
+
 So we need to turn a number into something like :code:`(bitmap/file "images/1.png")`
 
 Add this function under your :code:`world` struct:
@@ -254,7 +200,7 @@ name:
    (define (candy->bitmap number)
 	  (bitmap/file (string-append "images/" (number->string number) ".png")))
 
-Again, run your code, then in the REPL try these lines out again:
+Again, run your code, then in the REPL try these lines out again -- now it works: 
 
 .. code:: racket
 
@@ -264,3 +210,72 @@ Again, run your code, then in the REPL try these lines out again:
 
    (candy->bitmap 8)
 	  
+What position to draw each tile?
+................................
+
+Let's start by just assuming that our world is only one line of tiles.
+
+We can see that each tile would be 40 pixels across from the last one,
+and checking back to the code above we know that we want to place
+tiles using half the block size so that they are fully on screen.
+
+So here's how we can map from tile number to position:
+
+.. code:: racket
+
+   (define (number->posn number)
+      (* number 40))
+
+Let's try it in the REPL:
+
+.. code:: racket
+
+   (number->posn 1)
+
+   (number->posn 10)
+
+You should get results `40` and `400`. That shouldn't be too surprising,
+that function just multiplies our number by 40. 
+
+This is just the x-position, we need the y-position too. We can use a struct
+called `posn` to do this. Add this `require` statement to the top of your program:
+
+.. code-block:: racket
+   :emphasize-lines: 3
+
+   (require 2htdp/universe)
+   (require 2htdp/image)
+   (require lang/posn)
+
+Now we can update our function:
+
+.. code-block:: racket
+   :emphasize-lines: 2
+
+   (define (number->posn number)
+      (make-posn (* number 40) 0))
+
+Let's try it in the REPL:
+
+   (number->posn 1)
+
+   (number->posn 10)
+
+This is more interesting, now we see results `(posn 40 0)` and `(posn 400 0)`.
+
+Putting it all together
+.......................
+
+Now we can fix our function `candy+scene` so that it uses our two new functions
+to get the right image and use the right placement.
+
+Change your `candy+scene` function to the following:
+
+
+.. code-block:: racket
+   :emphasize-lines: 2
+
+   (define (candy+scene candy scene)
+      (place-images (bitmap/file "images/1.png")
+		   (/ BLOCK-SIZE 2) (/ BLOCK-SIZE 2) 
+                   scene))
