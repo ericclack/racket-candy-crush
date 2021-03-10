@@ -5,7 +5,7 @@
 
 (define WIDTH 8)
 (define HEIGHT 10)
-(define BLOCK-SIZE 40)
+(define BSIZE 40)
 
 (struct world (candy cursor))
 
@@ -13,17 +13,17 @@
   (bitmap/file (string-append "images/" (number->string number) ".png")))
 
 (define (number->posn number)
-  (make-posn (* number 40) 0))
+  (make-posn (* number BSIZE) 0))
 
 (define (candy+scene candy scene)
   (place-image (bitmap/file "images/1.png")
-               (/ BLOCK-SIZE 2) (/ BLOCK-SIZE 2) 
+               (/ BSIZE 2) (/ BSIZE 2) 
                scene))
 
 (define (draw-world w)
   (candy+scene (world-candy w)
-               (empty-scene (* WIDTH BLOCK-SIZE)
-                            (* HEIGHT BLOCK-SIZE) "blue")))
+               (empty-scene (* WIDTH BSIZE)
+                            (* HEIGHT BSIZE) "blue")))
 
-(big-bang (world (list 1 2 3) null)
+(big-bang (world (list 1 2 3 4 5 6 7 8) null)
   (to-draw draw-world))

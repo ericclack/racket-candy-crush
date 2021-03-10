@@ -3,10 +3,13 @@
 Part 1
 ======
 
-Let's create our first program
-------------------------------
+Creating our game world
+-----------------------
 
-Now on the left hand side, type in the following code:
+Let's start with a blank screen -- so on the left hand side, type in
+the following code. There's a few lines here so take your time. Don't
+be tempted to copy and paste because the typing is good practice and
+it helps you remember the commands. 
 
 .. code:: racket
 
@@ -16,11 +19,11 @@ Now on the left hand side, type in the following code:
 
    (define WIDTH 8)
    (define HEIGHT 10)
-   (define BLOCK-SIZE 40)
+   (define BSIZE 40)
 
    (define (draw-world w)
-     (empty-scene (* WIDTH BLOCK-SIZE)
-		  (* HEIGHT BLOCK-SIZE) "blue"))
+     (empty-scene (* WIDTH BSIZE)
+		  (* HEIGHT BSIZE) "blue"))
 
    (big-bang null
      (to-draw draw-world))
@@ -36,7 +39,7 @@ Let's step through that so we understand what's going on:
 * Now we bring in a few modules that we need later in the program with
   `require`
 * We have 3 constants that we use that define how big the game world
-  will be: `WIDTH`, `HEIGHT` AND `BLOCK-SIZE`
+  will be: `WIDTH`, `HEIGHT` AND `BSIZE`
 * Next we tell racket how to draw our world -- and at the moment it is
   simply an `empty-scene` of the right size with a blue background.
 * Finally `big-bang` creates our world with a single function: a link
@@ -46,8 +49,8 @@ If you've not done so already, save your file and make a directory to
 keep your game files and images tidy -- and so that you can find them
 again later.
   
-Let's add some tiles
---------------------
+Add the candy tiles
+-------------------
 
 Did you download the images (with instructions on the previous page)?
 First check that you put them in a directory called `images` then add
@@ -61,7 +64,7 @@ follows we've highlighted the new code in yellow.
 
    (define WIDTH 8)
    (define HEIGHT 10)
-   (define BLOCK-SIZE 40)
+   (define BSIZE 40)
 
    (struct world (candy cursor))
 
@@ -84,8 +87,8 @@ the code to do this now:
 
    (define (draw-world w)
      (candy+scene (world-candy w) 
-		  (empty-scene (* WIDTH BLOCK-SIZE)
-			       (* HEIGHT BLOCK-SIZE) "black")))
+		  (empty-scene (* WIDTH BSIZE)
+			       (* HEIGHT BSIZE) "black")))
 
 Run the code above to see what happens.
 
@@ -154,7 +157,7 @@ off the top of the screen. Let's fix that...
 
    (define (candy+scene candy scene)
      (place-image (bitmap/file "images/1.png")
-		  (/ BLOCK-SIZE 2) (/ BLOCK-SIZE 2) 
+		  (/ BSIZE 2) (/ BSIZE 2) 
 		  scene))
 
 OK, so we've drawn one tile, not very impressive yet! Looking
@@ -216,12 +219,13 @@ What position to draw each tile?
 Let's start by just assuming that our world is only one line of tiles.
 
 We can see that each tile would be 40 pixels across from the last one,
-so here's how we can map from tile number to position:
+since that's the size of each block, so here's how we can map from
+tile number to position:
 
 .. code:: racket
 
    (define (number->posn number)
-      (* number 40))
+      (* number BSIZE))
 
 Let's try it in the REPL:
 
@@ -250,7 +254,7 @@ Now we can update our function:
    :emphasize-lines: 2
 
    (define (number->posn number)
-      (make-posn (* number 40) 0))
+      (make-posn (* number BSIZE) 0))
 
 Let's try it in the REPL:
 
@@ -260,16 +264,17 @@ Let's try it in the REPL:
 
 This is more interesting, now we see results `(posn 40 0)` and `(posn 400 0)`.
 
-Lots of candy with map
-......................
+Using `map` to draw lots of candy
+.................................
 
-Almost there now! So we have our list of candy `(list 1 2 3), and two functions to
-get the bitmap and position. We've seen how we take one value (one piece of candy)
-and get the bitmap or position, but how do we do this for a list?
+Almost there now! So we have our list of candy `(list 1 2 3)`, and two
+functions to get the bitmap and position. We've seen how we take one
+value (one piece of candy) and get the bitmap or position, but how do
+we do this for a list?
 
-Using `map`. This function takes a function and a list and applies the function
-to every item in the list? Sounds confusing? It's actually easier to see it in
-action.
+Using `map`. This function takes a function and a list and applies the
+function to every item in the list. Sounds confusing? It's actually
+easy to understand when you see it in action.
 
 Type this in the REPL:
 
@@ -291,18 +296,39 @@ of numbers starting at zero and increasing by one each time.
 Putting it all together
 -----------------------
 
-Now we can fix our function `candy+scene` so that it uses our two new functions
-to get the right image and use the right placement.
+Now we can fix our function `candy+scene` so that it uses our two new
+functions and `map` to get the right image and use the right
+placement.
 
 Change your `candy+scene` function to the following:
 
 .. code-block:: racket
-   :emphasize-lines: 2
+   :emphasize-lines: 2,3
 
    (define (candy+scene candy scene)
       (place-images (map candy->bitmap candy)
                     (map number->posn (range (length candy)))
                     scene))
 
-Checking back to the code above we know that we want to place
-tiles using half the block size so that they are fully on screen.		   
+Run it and see what happens. Go back and add some more candy to your
+world too, just update the `list` in your `big-bang` function:
+
+.. code-block:: racket
+   :emphasize-lines: 1
+
+   (big-bang (world (list 1 2 3 4 5 6 7 8) null)            
+            (to-draw draw-world))
+
+Lots of candy -- but it's off the screen again. Looking back to our
+previous fix we can see we need to add half the block size `BSIZE` to
+each x and y position. So let's fix our function `number->posn`:
+
+.. code-block:: racket
+   :emphasize-lines: 2,3
+
+   (define (number->posn number)
+     (make-posn (+ (/ BSIZE 2)
+		   (* BSIZE number))
+		(/ BSIZE 2)))
+		    
+In :ref:`part2` we'll make a grid of tiles and add the moving cursor. 

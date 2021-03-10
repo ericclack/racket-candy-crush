@@ -34,6 +34,7 @@ Start the tutorial
    why
    intro
    part1
+   part2
 
 
 Get in touch
