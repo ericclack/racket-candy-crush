@@ -32,6 +32,7 @@ Start the tutorial
    :caption: Contents:
 
    why
+   intro
    part1
 
 

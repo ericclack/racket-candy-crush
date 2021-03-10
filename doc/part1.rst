@@ -30,27 +30,28 @@ Now press Run. You should see a new window with a blue background.
 
 Let's step through that so we understand what's going on:
 
-* First we tell Racket that we are using the Racket language -- this
-  might seem an odd thing to have to say, but racket actually supports
-  lots of different languages.
+* First we tell Racket that we are using the Racket language with
+  `#lang` -- this might seem an odd thing to have to say, but racket
+  actually supports lots of different languages.
 * Now we bring in a few modules that we need later in the program with
   `require`
 * We have 3 constants that we use that define how big the game world
   will be: `WIDTH`, `HEIGHT` AND `BLOCK-SIZE`
 * Next we tell racket how to draw our world -- and at the moment it is
   simply an `empty-scene` of the right size with a blue background.
-* Finally `big-bang` creates our universe (our game) with a single
-  function: a link to how to draw the game.
+* Finally `big-bang` creates our world with a single function: a link
+  to how to draw the game.
 
 If you've not done so already, save your file and make a directory to
 keep your game files and images tidy -- and so that you can find them
-again.
+again later.
   
 Let's add some tiles
 --------------------
 
-Did you download the images (with instructions on the previous page)? First
-check that you put them in a directory called `images` then add the code below.
+Did you download the images (with instructions on the previous page)?
+First check that you put them in a directory called `images` then add
+the code below.
 
 First let's create a structure to represent our world. In the code that
 follows we've highlighted the new code in yellow.
@@ -63,7 +64,6 @@ follows we've highlighted the new code in yellow.
    (define BLOCK-SIZE 40)
 
    (struct world (candy cursor))
-
 
 So our world is some `candy` and a `cursor`. Now we can add a list of
 candy when we create our game with `big-bang`:
@@ -90,7 +90,7 @@ the code to do this now:
 Run the code above to see what happens.
 
 Brackets!
----------
+.........
 
 You probably added the yellow line above and when you ran it you got an error:
 
@@ -216,10 +216,7 @@ What position to draw each tile?
 Let's start by just assuming that our world is only one line of tiles.
 
 We can see that each tile would be 40 pixels across from the last one,
-and checking back to the code above we know that we want to place
-tiles using half the block size so that they are fully on screen.
-
-So here's how we can map from tile number to position:
+so here's how we can map from tile number to position:
 
 .. code:: racket
 
@@ -263,19 +260,49 @@ Let's try it in the REPL:
 
 This is more interesting, now we see results `(posn 40 0)` and `(posn 400 0)`.
 
+Lots of candy with map
+......................
+
+Almost there now! So we have our list of candy `(list 1 2 3), and two functions to
+get the bitmap and position. We've seen how we take one value (one piece of candy)
+and get the bitmap or position, but how do we do this for a list?
+
+Using `map`. This function takes a function and a list and applies the function
+to every item in the list? Sounds confusing? It's actually easier to see it in
+action.
+
+Type this in the REPL:
+
+.. code-block:: racket
+
+   (map candy->bitmap (list 1 5 1 5 1 5))
+
+You should see 6 pieces of candy -- pretty cool hey?
+
+What about the positions? What do we use here? Well we just need a list
+of numbers starting at zero and increasing by one each time.
+
+.. code-block:: racket
+
+   (range 6)
+
+   (map number->posn (range 6))
+
 Putting it all together
-.......................
+-----------------------
 
 Now we can fix our function `candy+scene` so that it uses our two new functions
 to get the right image and use the right placement.
 
 Change your `candy+scene` function to the following:
 
-
 .. code-block:: racket
    :emphasize-lines: 2
 
    (define (candy+scene candy scene)
-      (place-images (bitmap/file "images/1.png")
-		   (/ BLOCK-SIZE 2) (/ BLOCK-SIZE 2) 
-                   scene))
+      (place-images (map candy->bitmap candy)
+                    (map number->posn (range (length candy)))
+                    scene))
+
+Checking back to the code above we know that we want to place
+tiles using half the block size so that they are fully on screen.		   

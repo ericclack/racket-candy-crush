@@ -1,19 +1,19 @@
 #lang racket
 (require 2htdp/universe)
 (require 2htdp/image)
+(require lang/posn)
 
 (define WIDTH 8)
 (define HEIGHT 10)
 (define BLOCK-SIZE 40)
 
 (struct world (candy cursor))
-(struct posn (x y))
 
 (define (candy->bitmap number)
   (bitmap/file (string-append "images/" (number->string number) ".png")))
 
 (define (number->posn number)
-  (posn (* number 40) 0))
+  (make-posn (* number 40) 0))
 
 (define (candy+scene candy scene)
   (place-image (bitmap/file "images/1.png")
