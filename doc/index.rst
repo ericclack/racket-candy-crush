@@ -37,12 +37,6 @@ Start the tutorial
    part2
 
 
-Bugs
-----
-
-1. Fix placement of cursor, maybe using `place-image/align` because the
-   image is bigger than one block.
-
 Get in touch
 ------------
 

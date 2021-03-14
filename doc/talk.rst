@@ -39,17 +39,17 @@ Everything looks like this::
 
   (fn a b c d e)
 
-Functions just change some thing to a new thing. They are easy to
-understand because there are no side effects.
+Functions just convert some input thing to a new output thing. They
+are easy to understand because there are no side effects.
 
 Functions can return images, which appear in the REPL. 
-
-Map and filter seem simpler ways to think about processing lists
-than loops. 
 
 Test as you go: you can run almost any part of your program in the
 REPL because most functions are pure so you don't need to set up any
 state.
+
+Map and filter seem simpler ways to think about processing lists
+than loops. 
 
 And what seems challenging?
 ---------------------------
@@ -61,3 +61,4 @@ Maths with prefix notation is weird coming from regular
 maths. Although there's no confusion with BODMAS for complex
 expressions.
 
+Compared with Pygame Zero there is a bit more set up code. 
