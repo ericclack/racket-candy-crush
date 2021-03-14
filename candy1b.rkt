@@ -16,9 +16,10 @@
   (make-posn (* number BSIZE) 0))
 
 (define (candy+scene candy scene)
-  (place-image (bitmap/file "images/1.png")
-               (/ BSIZE 2) (/ BSIZE 2) 
-               scene))
+  (place-image/align (bitmap/file "images/1.png")
+                     0 0
+                     "left" "top"
+                     scene))
 
 (define (draw-world w)
   (candy+scene (world-candy w)

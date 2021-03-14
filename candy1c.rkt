@@ -13,14 +13,13 @@
   (bitmap/file (string-append "images/" (number->string number) ".png")))
 
 (define (number->posn number)
-  (make-posn (+ (/ BSIZE 2)
-                (* BSIZE number))
-             (/ BSIZE 2)))
+  (make-posn (* BSIZE number) 0))
 
 (define (candy+scene candy scene)
-  (place-images (map candy->bitmap candy)
-                (map number->posn (range (length candy)))
-                scene))
+  (place-images/align (map candy->bitmap candy)
+                      (map number->posn (range (length candy)))
+                      "left" "top"
+                      scene))
 
 (define (draw-world w)
   (candy+scene (world-candy w) 

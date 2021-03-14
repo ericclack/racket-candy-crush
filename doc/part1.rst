@@ -156,9 +156,10 @@ off the top of the screen. Let's fix that...
    :emphasize-lines: 3
 
    (define (candy+scene candy scene)
-     (place-image (bitmap/file "images/1.png")
-		  (/ BSIZE 2) (/ BSIZE 2) 
-		  scene))
+     (place-image/align (bitmap/file "images/1.png")
+			0 0
+			"left" "top"
+			scene))
 
 OK, so we've drawn one tile, not very impressive yet! Looking
 back at our world, we actually have 3 tiles: :code:`(list 1 2 3)`
@@ -307,9 +308,10 @@ Change your `candy+scene` function to the following:
    :emphasize-lines: 2,3
 
    (define (candy+scene candy scene)
-      (place-images (map candy->bitmap candy)
-                    (map number->posn (range (length candy)))
-                    scene))
+     (place-images/align (map candy->bitmap candy)
+			 (map number->posn (range (length candy)))
+			 "left" "top"
+			 scene))
 
 Run it and see what happens. Go back and add some more candy to your
 world too, just update the `list` in your `big-bang` function:
@@ -320,16 +322,6 @@ world too, just update the `list` in your `big-bang` function:
    (big-bang (world (list 1 2 3 4 5 6 7 8) null)            
             (to-draw draw-world))
 
-Lots of candy -- but it's off the screen again. Looking back to our
-previous fix we can see we need to add half the block size `BSIZE` to
-each x and y position. So let's fix our function `number->posn`:
-
-.. code-block:: racket
-   :emphasize-lines: 2,3
-
-   (define (number->posn number)
-     (make-posn (+ (/ BSIZE 2)
-		   (* BSIZE number))
-		(/ BSIZE 2)))
+Lots of candy!
 		    
 In :ref:`part2` we'll make a grid of tiles and add the moving cursor. 
