@@ -45,9 +45,8 @@ A grid of candy
 ---------------
 
 Do you remember what `number->posn` does? It simply multiplies the
-candy number by 40 and adds on a bit so that the tile is on the
-screen. This creates a single line of candy that pretty quickly
-runs off the screen. However, we really want a grid of candy.
+candy number by 40. This creates a single line of candy that pretty
+quickly runs off the screen. However, we really want a grid of candy.
 
 So currently we have this::
 
@@ -62,8 +61,8 @@ You can see this by trying this code in the REPL:
    (number->posn 15)
    (number->posn 20)
 
-They all return something followed by `20` which means they are all on
-the same line, since `20` is the y-position. 
+They all return something followed by `0` which means they are all on
+the same line, since `0` is the y-position. 
 
 But we want something like this::
 
@@ -92,11 +91,10 @@ OK, so let's use this in our `number->posn` function:
 .. code-block:: racket
    :emphasize-lines: 2-5
 
-   (define (index->posn i)
+   (define (number->posn i)
      (define x (remainder i WIDTH))
      (define y (quotient i WIDTH))
-     (make-posn (+ (/ BSIZE 2) (* BSIZE x))
-		(+ (/ BSIZE 2) (* BSIZE y))))
+     (make-posn (* BSIZE x) (* BSIZE y)))
 
 Now run your code and see the results. You will need to ensure you
 have enough tiles in your world, at least 11 of them, you can add them

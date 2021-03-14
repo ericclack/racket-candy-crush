@@ -10,25 +10,25 @@
 
 (struct world (candy cursor))
 
-(define (candy->img i)
+(define (candy->bitmap i)
   (if (null? i)
       empty-image
       (bitmap/file (string-append "images/" (number->string i) ".png"))))
 
-(define (index->posn i)
+(define (number->posn i)
   (define x (remainder i WIDTH))
   (define y (quotient i WIDTH))
-  (make-posn (+ (/ BSIZE 2) (* BSIZE x))
-             (+ (/ BSIZE 2) (* BSIZE y))))
+  (make-posn (* BSIZE x) (* BSIZE y)))
 
 (define (candy-posns candy)
-  (map index->posn
+  (map number->posn
        (range (length candy))))
 
 (define (candy+scene candy scene)
-  (place-images (map candy->img candy)
-                (candy-posns candy)
-                scene))
+  (place-images/align (map candy->bitmap candy)
+                      (map number->posn (range (length candy)))
+                      "left" "top"
+                      scene))
 
 (define (draw-world w)
   (candy+scene (world-candy w) 
