@@ -27,5 +27,5 @@
                (empty-scene (* WIDTH BSIZE)
                             (* HEIGHT BSIZE) "black")))
 
-(big-bang (world (list 1 2 3 4 5 6 7 8) null)            
+(big-bang (world (list 1 2 3 4 5 6 7 8 1 2 3 4 5 6 7 8) null)            
             (to-draw draw-world))
