@@ -89,7 +89,7 @@ position.
 OK, so let's use this in our `number->posn` function:
 
 .. code-block:: racket
-   :emphasize-lines: 2-5
+   :emphasize-lines: 2-4
 
    (define (number->posn i)
      (define x (remainder i WIDTH))
@@ -205,11 +205,66 @@ place. Add this function:
 Now to make it move...
 ......................
 
-Let's use the cursor keys to control the onscreen cursor. We can do
-this by adding a function that responds to key events.
+We're going to use the cursor keys to control the onscreen cursor. We
+can do this by adding a function that responds to key events.
+
+These event functions take the current world and return a new one,
+with whatever changes we want to make. So in the case of moving the
+cursor the new world will have the same candy, but a cursor in a new
+place.
+
+Let's start by defining a function that moves a position up, down,
+left or right. This function takes a `posn` position and an `x` and `y`
+movement: 
+
+.. code:: racket
+
+   (define (move-posn a-posn x y)
+     (make-posn (+ x (posn-x a-posn))
+		(+ y (posn-y a-posn))))
 
 
+Add the code above to your program, run it then try this in the REPL:
 
+.. code:: racket
 
+   (move-posn (make-posn 0 0) 0 1)
 
+This should move the cursor down and return `(posn 0 1)`.
 
+.. code:: racket
+
+   (move-posn (make-posn 5 5) -1 0)
+
+This should move the cursor left and return `(posn 4 5)`.
+
+Here's our new event function `move-cursor`:
+
+.. code:: racket
+
+   (define (move-cursor w a-key)
+     (world (world-candy w)
+	    (cond
+	      [(key=? a-key "left")  (move-posn (world-cursor w) -1 0)]
+	      [(key=? a-key "right") (move-posn (world-cursor w) 1  0)]
+	      [(key=? a-key "up")    (move-posn (world-cursor w) 0 -1)]
+	      [(key=? a-key "down")  (move-posn (world-cursor w) 0  1)]
+	      [else (world-cursor w)])))
+
+There's quite a bit going on there. First we create a new world, this is
+the next version of our game world: it has the same candy as before,
+then depending upon the key pressed, a different place for the cursor.
+
+Finally we need to hook this up to our `big-bang` function:
+
+.. code-block:: racket
+   :emphasize-lines: 5
+
+   (big-bang
+       (world (build-list (* WIDTH HEIGHT) random-tile)
+	      (make-posn 0 0))
+     (to-draw draw-world)
+     (on-key move-cursor))
+
+Test out your code, you can now move your cursor, including off the
+screen! 

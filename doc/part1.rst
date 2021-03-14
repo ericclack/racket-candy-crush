@@ -153,7 +153,7 @@ When you run this you'll see that the image is just visible, but half
 off the top of the screen. Let's fix that...
 
 .. code-block:: racket
-   :emphasize-lines: 3
+   :emphasize-lines: 4
 
    (define (candy+scene candy scene)
      (place-image/align (bitmap/file "images/1.png")

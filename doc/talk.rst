@@ -19,15 +19,15 @@ Quick results with little code.
 
 They don't often understand what they are doing, but it seems to work.
 
-Brackets, commas, quotes are confusing.
+Brackets, commas, quotes are confusing. They've not seen these things
+before in Scratch.
 
 Nested things are confusing, such as if-statements containing anything
-beyond the simplest statement. Both the concept of this work happens
-inside this conditional, and the indentation.
+beyond the simplest statement. Both the concept of things inside
+conditionals, and the indentation.
 
 Poor concept of functions.
 
 Often functions do something to the world and it is hard to know when
-to call them. 
-
+to call them. If you call them in the wrong place it doesn't work.
 

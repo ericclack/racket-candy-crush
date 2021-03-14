@@ -52,8 +52,11 @@
 (define (move-cursor w a-key)
   (world (world-candy w)
          (cond
+           [(key=? a-key "left")  (move-posn (world-cursor w) -1 0)]
            [(key=? a-key "right") (move-posn (world-cursor w) 1 0)]
-           [(key=? a-key "down")  (move-posn (world-cursor w) 0 1)])))
+           [(key=? a-key "up")    (move-posn (world-cursor w) 0 -1)]
+           [(key=? a-key "down")  (move-posn (world-cursor w) 0 1)]
+           [else (world-cursor w)])))
 
 (big-bang
     (world (build-list (* WIDTH HEIGHT) random-tile)
