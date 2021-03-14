@@ -196,18 +196,17 @@ place. Add this function:
 .. code-block:: racket
 
    (define (cursor+scene cursor scene)
-     (place-image (bitmap "images/selected.png")
-		  (posn-x cursor) (posn-y cursor)
-		  scene))
+     (place-image/align (bitmap "images/selected.png")
+			(* BSIZE (posn-x cursor))
+			(* BSIZE (posn-y cursor))
+			"left" "top"
+			scene))
 
-When you run this you'll see that the cursor appears, but we have the
-same old problem of the bitmap being partially off the screen. Also
-there's another problem: we're not multiplying the `x` and `y` by the
-block size `BSIZE`.
+Now to make it move...
+......................
 
-Given that we've done this before, let's fix this with a helper
-function that takes the `x` and `y` position and returns the correct
-pixel position.
+Let's use the cursor keys to control the onscreen cursor. We can do
+this by adding a function that responds to key events.
 
 
 
