@@ -6,10 +6,10 @@ Part 1
 Creating our game world
 -----------------------
 
-Let's start with a blank screen -- so on the left hand side, type in
-the following code. There's a few lines here so take your time. Don't
-be tempted to copy and paste because the typing is good practice and
-it helps you remember the commands. 
+Let's start by making a blank game screen -- so on the left hand side,
+type in the following code. There's a few lines here so take your
+time. Try not to just copy and paste because the typing is good
+practice and it helps you remember the commands.
 
 .. code:: racket
 
@@ -284,8 +284,9 @@ Type this in the REPL:
 
 You should see 6 pieces of candy -- pretty cool hey?
 
-What about the positions? What do we use here? Well we just need a list
-of numbers starting at zero and increasing by one each time.
+What about the positions? What do we use here? Well we just need a
+list of numbers starting at zero and increasing by one each
+time. `range` does this for us:
 
 .. code-block:: racket
 
