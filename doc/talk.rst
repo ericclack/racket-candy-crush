@@ -62,3 +62,22 @@ maths. Although there's no confusion with BODMAS for complex
 expressions.
 
 Compared with Pygame Zero there is a bit more set up code. 
+
+So why learn Racket?
+--------------------
+
+There's less new stuff (syntax elements) to take in when moving from
+Scratch.
+
+Test as you go with the REPL.
+
+Really learn what functions do.
+
+A more natural way to deal with lists of things.
+
+The challenges
+--------------
+
+Who can teach you?
+
+Pros and cons of being a programming polygot. More work,
