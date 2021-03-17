@@ -9,66 +9,108 @@ Why learn Racket? Why teach Racket?
 Bit about me
 ............
 
-A bit of background: I mentor at Brighton Coder Dojo and we've written
-a number of tutorials for young people new to Python. I've also
-created various Racket games examples over the years, with an idea
-that they may work at our code club. But I've never used them. Maybe
-because I've never tried to answer the question: why learn Racket?
+A bit of background: I mentor at Brighton Coder Dojo -- a code club
+for 6-17 year olds. Way back in my professional life I've been a coder
+in C, C++, Python, JavaScript. I also love to play with a wide range
+of languages.
 
-Way back in my professional life I've been a coder in C, C++, Python,
-JavaScript. I also love to play with a wide range of languages. --
-and more recently I've been a project manager,
-scrummaster, team leader and now I run a software development company.
+At Coder Dojo We've written a number of tutorials for young people new
+to Python. I've also created various Racket games examples over the
+years, with an idea that they may work at our code club. But I've
+never used them. Maybe because I've never tried to answer the
+question: why learn Racket?
+
 
 Learning to program
 ...................
 
-At code clubs for young people (6-16 year olds) people typically start
-with a block-based programming language such as Scratch. When they are
-ready they move on to a text-based programming language, usually
-Python.
+At code clubs young people typically start with a block-based
+programming language such as Scratch.
+
+[Really quick demo of moving a cat]
+
+When they are ready they move on to a text-based programming language,
+usually Python.
 
 But what about Racket? It's got a great environment, it's good with
 graphics, pretty concise (so not too much typing) but I've not seen it
 at any code club.
 
-So can I make a case for learning Racket, and teaching Racket? Will I
-convince some young people to try it?
+So can I make a case for learning Racket, and teaching Racket?
+
+Will I convince some young people to try it?
 
 The question: Why learn Racket? Why teach Racket? 
 --------------------------------------------------
 
-Why teach any language? Our aim is to inspire and develop great
-programmers.
+Why teach any language?
+
+Our aim is to inspire and develop great programmers. Programmers
+that have a deep understanding of how code works.
 
 How can we answer the question?
 -------------------------------
 
+Let's compare Racket and Python from the point of view of someone
+learning a text-based language for the first time.
+
 Let's look at a game tutorial for Candy Crush.
 
-Well let's explore Python and Racket. (In Python with what we use at
-Coder Dojo: Pygame Zero with the Mu editor).
-
-Remember our audience: Kids coming from Scratch and trying a
-text-based language for the first time.
 
 What we know
 ------------
 
-Kids are really motivated, to learn to program, and know when they are ready to step up from Scatch. When they see the game tutorials they really want to create Candy Crush, Flappy Bird, etc.
+Kids at the club are really motivated to learn to program. They know
+when they are ready to step up from Scatch. When they see the game
+tutorials they really want to create Candy Crush, Flappy Bird, etc.
 
-They want quick results with little code.
+They love quick results with little code.
 
-They don't often understand what they are doing, but copy code seems to work.
+They don't often understand what they are doing, but copy code seems
+to work.
 
-Making that leap from copying to understanding is really hard -- many don't make it.
+Making that leap from copying to understanding is really hard -- many
+don't make it. We see this when things don't work. 
 
 
 The REPL
 --------
 
-Great that both languages have a REPL.
-Quick look.
+It's great that both languages have a REPL.
+Let's take a quick look.
+
+.. code:: python
+
+   5 + 7
+
+   1 * 2 * 3 * 4 * 5
+
+   "hello" + "world"
+
+   range(20)
+
+   alist = [1,2,3,4,5,6,7,8,9]
+
+   shuffle(alist)
+
+.. code:: racket
+          
+   (+ 5 7)
+
+   (* 1 2 3 4 5)
+
+   (string-append "hello" "world")
+
+   (range 20)
+
+   (shuffle (range 20))
+   
+
+Observations:
+- REPLs are great
+- Notice that in Python shuffle changes the list, Racket
+  returns a new one
+
 We'll come back here in a tick.
 
 Showing the candy
