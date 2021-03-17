@@ -1,52 +1,59 @@
 .. _talk:
 
-Talk
-====
+Talk: Why learn Racket? Why teach Racket?
+=========================================
 
-Why learn Racket? Why teach Racket?
------------------------------------
+Hi, I'm Eric Clack
+------------------
 
-Bit about me
-............
+I mentor at Brighton Coder Dojo -- a code club for 6-17 year olds.
 
-A bit of background: I mentor at Brighton Coder Dojo -- a code club
-for 6-17 year olds. Way back in my professional life I've been a coder
-in C, C++, Python, JavaScript. I also love to play with a wide range
-of languages.
+Way back in my professional life I've been a coder in C, C++, Python,
+JavaScript. I also love to play with a wide range of languages.
 
-At Coder Dojo We've written a number of tutorials for young people new
-to Python. I've also created various Racket games examples over the
-years, with an idea that they may work at our code club. But I've
-never used them. Maybe because I've never tried to answer the
-question: why learn Racket?
+Coder Dojo
+----------
 
-
-Learning to program
-...................
+At Coder Dojo our aim is to inspire and develop great
+programmers. Programmers that have a deep understanding of how code
+works. Programmers that can create amazing things on their computers.
 
 At code clubs young people typically start with a block-based
-programming language such as Scratch.
+programming language such as Scratch. 
 
 [Really quick demo of moving a cat]
 
-When they are ready they move on to a text-based programming language,
-usually Python.
+Scratch is really cool, you can create amazing programs in it. However
+kids outgrow it, so when they are ready they move on to a text-based
+programming language, usually Python.
+
+But why not something else? 
+
+Games tutorials
+---------------
+
+At Coder Dojo we've written a number of tutorials for young people new
+to Python. 
+
+I've also created various Racket games examples over the years, with
+an idea that they may work at our code club.
+
+But I've never used them.
+
+Maybe because I've never come up with a good answer the question:
+Why learn Racket?
 
 But what about Racket? It's got a great environment, it's good with
-graphics, pretty concise (so not too much typing) but I've not seen it
-at any code club.
+graphics, pretty concise but I've not seen it at any code club.
 
 So can I make a case for learning Racket, and teaching Racket?
 
 Will I convince some young people to try it?
 
-The question: Why learn Racket? Why teach Racket? 
---------------------------------------------------
+The bigger question
+...................
 
 Why teach any language?
-
-Our aim is to inspire and develop great programmers. Programmers
-that have a deep understanding of how code works.
 
 How can we answer the question?
 -------------------------------
@@ -61,7 +68,7 @@ What we know
 ------------
 
 Kids at the club are really motivated to learn to program. They know
-when they are ready to step up from Scatch. When they see the game
+when they are ready to step up from Scratch. When they see the game
 tutorials they really want to create Candy Crush, Flappy Bird, etc.
 
 They love quick results with little code.
@@ -93,6 +100,8 @@ Let's take a quick look.
 
    shuffle(alist)
 
+And in Racket: 
+   
 .. code:: racket
           
    (+ 5 7)
@@ -113,10 +122,10 @@ Observations:
 - Notice that in Python shuffle changes the list, Racket
   returns a new one
 
-We'll come back to the REPL soon
-
 Showing the candy
 -----------------
+
+
 
 Python
 ......
