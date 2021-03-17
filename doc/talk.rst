@@ -1,15 +1,16 @@
 .. _talk:
 
-Talk: Why learn Racket? Why teach Racket?
-=========================================
+Why learn Racket? Why teach Racket?
+===================================
 
-Hi, I'm Eric Clack
-------------------
+Hello everyone!
+---------------
+
+I'm Eric Clack.
 
 I mentor at Brighton Coder Dojo -- a code club for 6-17 year olds.
 
-Way back in my professional life I've been a coder in C, C++, Python,
-JavaScript. I also love to play with a wide range of languages.
+And I've a question: why learn Racket? Why teach it at Coder Dojo?
 
 Coder Dojo
 ----------
@@ -29,62 +30,31 @@ programming language, usually Python.
 
 But why not something else? 
 
-Games tutorials
----------------
+A case for Racket
+-----------------
 
-At Coder Dojo we've written a number of tutorials for young people new
-to Python. 
+I think Python is a great language, but it seems to me that kids are
+missing out by not exploring more broadly, and maybe Racket is
+actually a better place to start?
 
-I've also created various Racket games examples over the years, with
-an idea that they may work at our code club.
+So I'm going to try and make that case! 
 
-But I've never used them.
-
-Maybe because I've never come up with a good answer the question:
-Why learn Racket?
-
-But what about Racket? It's got a great environment, it's good with
-graphics, pretty concise but I've not seen it at any code club.
-
-So can I make a case for learning Racket, and teaching Racket?
-
-Will I convince some young people to try it?
-
-The bigger question
-...................
-
-Why teach any language?
-
-How can we answer the question?
--------------------------------
+How?
+----
 
 Let's compare Racket and Python from the point of view of someone
 learning a text-based language for the first time.
 
-Let's look at a game tutorial for Candy Crush.
+Let's look at a game tutorial I wrote for Candy Crush in Python and one I'm
+working on now in Racket. How do they compare?
 
-
-What we know
-------------
-
-Kids at the club are really motivated to learn to program. They know
-when they are ready to step up from Scratch. When they see the game
-tutorials they really want to create Candy Crush, Flappy Bird, etc.
-
-They love quick results with little code.
-
-They don't often understand what they are doing, but copy code seems
-to work.
-
-Making that leap from copying to understanding is really hard -- many
-don't make it. We see this when things don't work. 
-
+- `Python Candy Crush Tutorial`_
+- `Racket Candy Crush Tutorial`_
 
 The REPL
 --------
 
-It's great that both languages have a REPL.
-Let's take a quick look.
+Let's start by looking at the REPL. It's great that both languages have one.
 
 .. code:: python
 
@@ -93,8 +63,6 @@ Let's take a quick look.
    1 * 2 * 3 * 4 * 5
 
    "hello" + "world"
-
-   range(20)
 
    alist = [1,2,3,4,5,6,7,8,9]
 
@@ -108,56 +76,73 @@ And in Racket:
 
    (* 1 2 3 4 5)
 
-   (string-append "hello" "world")
-
    (range 20)
 
    (shuffle (range 20))
    
 
 Observations:
+
 - REPLs are great
-- Python generators are cool, but not easy to understand
-  for a beginner
 - Notice that in Python shuffle changes the list, Racket
   returns a new one
 
 Showing the candy
 -----------------
 
-
+OK, over to Candy Crush.
 
 Python
 ......
 
 Starting out:
-- adding some tiles
-- adding the cursor
-- ah! my world keeps changing!
 
-For most kids the next bit is confusing: lists + loops + indexing. 
+- empty game world -- not much typing
+- adding a tile -- no problems, easy
+- adding many more tiles -- kind of OK, not sure why this works
+- adding the cursor -- OK
+- moving the cursor -- Ah! my world keeps changing!
+
+Why? It is hard to see, but there is no game state yet.
+
+We're just drawing random things on the screen.
+  
+For most kids fixing this is confusing: we need lists + loops +
+indexing.
 
 
 Racket
 ......
 
-Starting with candy1a.rkt
+Let's see how this works in Racket. In the tutorial we start out in
+the REPL to try out ideas before writing code in our program. 
 
-REPL:
-- single image
-- numbers to images
-- map
+Starting with candy1a.rkt.
+
+- single image -- with `bitmap/file`
+- numbers to images -- add function `candy->bitmap`
+- see our world as a list of tiles
+- use map to make it
+
+See how we can do so much in the REPL to try ideas before writing
+code into our program?
+
+
 
 Another look at the REPL
 ------------------------
 
-Try something that works in both
+Try something that works in both:
 
-Try to run draw() in python
-Do same in Racket :) 
+- what?
+
+Now for something more interesting: 
+  
+- Try to run draw() in python
+- Do same in Racket :) 
   
 
-Observations on Python
+Some more observations on Python
 ----------------------
 
 Brackets, commas, quotes are confusing. They've not seen these things
@@ -174,6 +159,22 @@ to call them. If you call them in the wrong place it doesn't work.
 
 However, some kids do get there and get to the point where they
 can make their own games and mentor other kids.
+
+
+What we know
+------------
+
+Kids at the club are really motivated to learn to program. They know
+when they are ready to step up from Scratch. When they see the game
+tutorials they really want to create Candy Crush, Flappy Bird, etc.
+
+They love quick results with little code.
+
+They don't often understand what they are doing, but copy code seems
+to work.
+
+Making that leap from copying to understanding is really hard -- many
+don't make it. We see this when things don't work. 
 
 
 What's seems nice about Racket?
@@ -216,16 +217,14 @@ With Racket you've got a much better chance of understanding how
 code works, by working on little functions that do simple things
 that you can easy test for yourself in the REPL.
 
-But! You need to know the Racket (Scheme) way. 
+But! You need to know the Racket (Scheme) way. And a Racket tutor!
   
-And: 
+Some other advantages: 
 
-There's less new stuff (syntax elements) to take in when moving from
-Scratch.
-
-A more natural way to deal with lists of things.
-
-You can take what you learn to other languages.
+- There's less new stuff (syntax elements) to take in when moving from
+  Scratch.
+- A more natural way to deal with lists of things.
+- You can take what you learn to other languages.
 
 The challenges
 ..............
@@ -244,4 +243,7 @@ I'll publish this tutorial soon, you can see it on github my id is my name ericc
 
 Will I try it at Coder Dojo?
 
-The case for professional programmers to try it?
+What about the case for professional programmers to try it?
+
+.. _Python Candy Crush Tutorial: https://pygamezero-candy.readthedocs.io/en/latest/
+.. _Racket Candy Crush Tutorial: https://github.com/ericclack/racket-candy-crush/blob/master/doc/index.rst
