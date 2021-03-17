@@ -52,6 +52,18 @@ Coder Dojo: Pygame Zero with the Mu editor).
 Remember our audience: Kids coming from Scratch and trying a
 text-based language for the first time.
 
+What we know
+------------
+
+Kids are really motivated, to learn to program, and know when they are ready to step up from Scatch. When they see the game tutorials they really want to create Candy Crush, Flappy Bird, etc.
+
+They want quick results with little code.
+
+They don't often understand what they are doing, but copy code seems to work.
+
+Making that leap from copying to understanding is really hard -- many don't make it.
+
+
 The REPL
 --------
 
@@ -94,12 +106,6 @@ Do same in Racket :)
 
 Observations on Python
 ----------------------
-
-Kids are really motivated, [what kind of motivation?]
-
-Quick results with little code.
-
-They don't often understand what they are doing, but it seems to work.
 
 Brackets, commas, quotes are confusing. They've not seen these things
 before in Scratch.
