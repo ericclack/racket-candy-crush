@@ -56,6 +56,8 @@ The REPL
 --------
 
 Great that both languages have a REPL.
+Quick look.
+We'll come back here in a tick.
 
 Showing the candy
 -----------------
