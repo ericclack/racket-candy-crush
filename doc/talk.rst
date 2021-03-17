@@ -108,10 +108,12 @@ Let's take a quick look.
 
 Observations:
 - REPLs are great
+- Python generators are cool, but not easy to understand
+  for a beginner
 - Notice that in Python shuffle changes the list, Racket
   returns a new one
 
-We'll come back here in a tick.
+We'll come back to the REPL soon
 
 Showing the candy
 -----------------
@@ -199,14 +201,22 @@ Compared with Pygame Zero there is a bit more set up code.
 So why learn Racket?
 --------------------
 
+In my mind the number one reason is this:
+
+With Racket you've got a much better chance of understanding how
+code works, by working on little functions that do simple things
+that you can easy test for yourself in the REPL.
+
+But! You need to know the Racket (Scheme) way. 
+  
+And: 
+
 There's less new stuff (syntax elements) to take in when moving from
 Scratch.
 
-Test as you go with the REPL.
-
-Really learn what functions do.
-
 A more natural way to deal with lists of things.
+
+You can take what you learn to other languages.
 
 The challenges
 ..............
@@ -214,7 +224,7 @@ The challenges
 Who can teach you?
 
 Pros and cons of being a programming polygot. More work, broader
-understanding of the conceps. 
+understanding of the conceps.
 
 What next?
 ----------
