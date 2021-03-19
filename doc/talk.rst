@@ -9,10 +9,15 @@ Set up
 Open up: 
 
 - Mu editor with `candy-test0.py` + REPL visible
-- Racket with `candy1a.rkt` + REPL visible
+- Racket with `candy1a.rkt` + empty tab for REPL
 - Browser with https://scratch.mit.edu/projects/editor/
 - Browser with https://pygamezero-candy.readthedocs.io/en/latest/
 
+Run:
+
+- Python:
+  import random
+  
 
 Hello everyone!
 ---------------
@@ -68,7 +73,9 @@ working on now in Racket. How do they compare?
 The REPL
 --------
 
-Let's start by looking at the REPL. It's great that both languages have one.
+Before we get to the tutorials let's take a quick look at the REPL.
+
+It's great that both languages have one!
 
 .. code:: python
 
@@ -78,7 +85,7 @@ Let's start by looking at the REPL. It's great that both languages have one.
 
    alist = [1,2,3,4,5,6,7,8,9]
 
-   shuffle(alist)
+   random.shuffle(alist)
 
 And in Racket: 
    
@@ -102,14 +109,17 @@ Showing the candy
 
 OK, over to Candy Crush.
 
+  Set up: Switch to PygameZero mode.
+
 Python
 ......
 
-Starting out: [find a way to speed this up]
+Starting out: 
 
 - empty game world -- not much typing
-- adding a tile -- no problems, easy
-- adding many more tiles -- kind of OK, not sure why this works
+- adding a tile with `screen.blit` -- no problems, easy
+- adding more tiles with duplication -- easy
+- adding many more tiles with a loop -- kind of OK, not sure why this works
 - adding the cursor -- OK
 - moving the cursor -- Ah! my world keeps changing!
 
