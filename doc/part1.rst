@@ -114,7 +114,8 @@ So it always produces the same tile because we don't use the
 :code:`number` argument. Here's how we get the number in the file
 name.
 
-In the code that follows we've highlighted the new code in yellow.
+In the code that follows we've highlighted the new code in yellow. Be
+careful to put all those closing brackets in on the last line.
 
 .. code-block:: racket
    :emphasize-lines: 2,3,4
@@ -138,7 +139,7 @@ now it works:
 Using `map` to draw lots of candy
 .................................
 
-So we have our list of candy `(list 1 2 3 4 5 6 7 8)`, and a functions
+So we have our list of candy `(list 1 2 3 4 5 6 7 8)`, and a function
 to get the bitmap. We've seen how we take one value (one piece of
 candy) and get the bitmap or position, but how do we do this for a
 list?
@@ -185,17 +186,25 @@ candy when we create our game with `big-bang`:
 
 If you run this now, you won't see anything different, that's because
 we are not drawing the world in our `draw-world` function. So let's add
-the code to do this:
+the code to do this.
+
+First add a new function above `draw-world`:
 
 .. code-block:: racket
-   :emphasize-lines: 1-5,8
 
    (define (candy+scene candy scene)
-     (place-images
+     (place-images/align
       (map candy->bitmap candy)
       ;; We need to supply positions for our images here
+      "left" "top"
       scene))
    
+Then change your `draw-world` function to use it -- don't forget
+the extra bracket on the last line.
+      
+.. code-block:: racket
+   :emphasize-lines: 2,4
+
    (define (draw-world w)
      (candy+scene (world-candy w) 
 		  (empty-scene (* WIDTH BSIZE)
@@ -269,79 +278,27 @@ This is more interesting, now we see a list of: ::
    (posn 40 0)
    (posn 80 0)
    (posn 120 0)
+   ...
   
 
 Putting it all together
 -----------------------
 
-So let's use this in our new function :code:`candy+scene`:
-
-.. code:: racket
-
-   (define (candy+scene candy scene)
-     (place-image (bitmap/file "images/1.png")
-		  0 0 
-		  scene))
-      
-When you run this you'll see that the image is just visible, but half
-off the top of the screen. Let's fix that...
+So let's finish our function :code:`candy+scene`. Change your function to the following:
 
 .. code-block:: racket
    :emphasize-lines: 4
 
    (define (candy+scene candy scene)
-     (place-image/align (bitmap/file "images/1.png")
-			0 0
-			"left" "top"
-			scene))
+     (place-images/align
+      (map candy->bitmap candy)
+      (map number->posn (range (length candy)))
+      "left" "top"
+      scene))
 
-OK, so we've drawn one tile, not very impressive yet! Looking
-back at our world, we actually have 3 tiles: :code:`(list 1 2 3)`
-so how do we draw these?
-
-We need to do two things:
-
-1. Map the numbers to the images
-2. Work out the position of each tile.
-
-We can do both these things with functions, let's work on the images first.
-
-What position to draw each tile?
-................................
-
-
-
-
-What about the positions? What do we use here? Well we just need a
-list of numbers starting at zero and increasing by one each
-time. `range` does this for us:
-
-.. code-block:: racket
-
-   (range 6)
-
-   (map number->posn (range 6))
-
-Putting it all together
------------------------
-
-Now we can fix our function `candy+scene` so that it uses our two new
-functions and `map` to get the right image and use the right
-placement.
-
-Change your `candy+scene` function to the following:
-
-.. code-block:: racket
-   :emphasize-lines: 2,3
-
-   (define (candy+scene candy scene)
-     (place-images/align (map candy->bitmap candy)
-			 (map number->posn (range (length candy)))
-			 "left" "top"
-			 scene))
-
-Run it and see what happens. Go back and add some more candy to your
-world too, just update the `list` in your `big-bang` function:
+Run it and see what happens. Lot's of candy! Go back and add some more
+candy to your world too, just update the `list` in your `big-bang`
+function:
 
 .. code-block:: racket
    :emphasize-lines: 1

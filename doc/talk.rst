@@ -3,6 +3,17 @@
 Why learn Racket? Why teach Racket?
 ===================================
 
+Set up
+------
+
+Open up: 
+
+- Mu editor with `candy-test0.py` + REPL visible
+- Racket with `candy1a.rkt` + REPL visible
+- Browser with https://scratch.mit.edu/projects/editor/
+- Browser with https://pygamezero-candy.readthedocs.io/en/latest/
+
+
 Hello everyone!
 ---------------
 
@@ -113,8 +124,8 @@ indexing.
 Racket
 ......
 
-Let's see how this works in Racket. In the tutorial we start out in
-the REPL to try out ideas before writing code in our program. 
+Let's see how this works in Racket. In the tutorial we use the REPL
+a fair bit to try out ideas before writing code in our program. 
 
 Starting with candy1a.rkt.
 
@@ -127,12 +138,10 @@ See how we can do so much in the REPL to try ideas before writing
 code into our program?
 
 
-
 Another look at the REPL
 ------------------------
 
 Try something that works in both:
-
 - what?
 
 Now for something more interesting: 
@@ -142,7 +151,7 @@ Now for something more interesting:
   
 
 Some more observations on Python
-----------------------
+--------------------------------
 
 Brackets, commas, quotes are confusing. They've not seen these things
 before in Scratch.
