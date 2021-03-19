@@ -8,9 +8,14 @@ Hello everyone!
 
 I'm Eric Clack.
 
-I mentor at Brighton Coder Dojo -- a code club for 6-17 year olds.
+I mentor at Brighton Coder Dojo -- a code club for 6-17 year olds. I
+also run a software product company in Brighton.
 
-And I've a question: why learn Racket? Why teach it at Coder Dojo?
+And I've a question: why learn Racket? Why teach it at somewhere like
+Coder Dojo?
+
+I've been thinking about this question for a while, here's where I've
+got to. Perhaps you can help?
 
 Coder Dojo
 ----------
@@ -37,8 +42,6 @@ I think Python is a great language, but it seems to me that kids are
 missing out by not exploring more broadly, and maybe Racket is
 actually a better place to start?
 
-So I'm going to try and make that case! 
-
 How?
 ----
 
@@ -58,8 +61,6 @@ Let's start by looking at the REPL. It's great that both languages have one.
 
 .. code:: python
 
-   5 + 7
-
    1 * 2 * 3 * 4 * 5
 
    "hello" + "world"
@@ -72,8 +73,6 @@ And in Racket:
    
 .. code:: racket
           
-   (+ 5 7)
-
    (* 1 2 3 4 5)
 
    (range 20)
@@ -95,7 +94,7 @@ OK, over to Candy Crush.
 Python
 ......
 
-Starting out:
+Starting out: [find a way to speed this up]
 
 - empty game world -- not much typing
 - adding a tile -- no problems, easy

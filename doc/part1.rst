@@ -39,7 +39,7 @@ Let's step through that so we understand what's going on:
 * Now we bring in a few modules that we need later in the program with
   `require`
 * We have 3 constants that we use that define how big the game world
-  will be: `WIDTH`, `HEIGHT` AND `BSIZE`
+  will be: `WIDTH`, `HEIGHT` AND `BSIZE`, the block size.
 * Next we tell racket how to draw our world -- and at the moment it is
   simply an `empty-scene` of the right size with a blue background.
 * Finally `big-bang` creates our world with a single function: a link
@@ -48,16 +48,121 @@ Let's step through that so we understand what's going on:
 If you've not done so already, save your file and make a directory to
 keep your game files and images tidy -- and so that you can find them
 again later.
-  
+
+Don't forget to download the images
+-----------------------------------
+
+Did you download the images (with instructions on the previous page)?
+Check that you put them in a directory called `images`, your code
+directory should look something like this:
+
+- candy.rkt
+- images/
+   - 1.png
+   - 2.png
+   - etc
+
 Add the candy tiles
 -------------------
 
-Did you download the images (with instructions on the previous page)?
-First check that you put them in a directory called `images` then add
-the code below.
+So how do we actually draw the tiles? Let's see first if we can get
+one tile on the screen.
 
-First let's create a structure to represent our world. In the code that
-follows we've highlighted the new code in yellow.
+In the REPL, type this code in:
+
+.. code:: racket
+
+   (bitmap/file "images/1.png")
+
+You should see a light blue tile in the REPL. You can try different numbers,
+there are tiles all the way up to 8.
+
+We're going to represend our game world with a simple list like this:
+
+.. code:: racket
+
+   (list 1 2 3 4 5 6 7 8)
+
+So how do we turn this list of tile numbers into a grid of images? 
+
+From numbers to images
+......................
+
+We can see where the number goes in our code :code:`(bitmap/file
+"images/1.png")`, it's between the `/` and the `.png`. Let's do this
+transformation in a function.
+
+First add this function to your code above your `draw-world` function: 
+
+.. code:: racket
+
+   (define (candy->bitmap number)
+	  (bitmap/file "images/1.png"))
+
+You might notice that it doesn't use the number yet, so run your code,
+then in the REPL try this out:
+
+.. code:: racket
+
+   (candy->bitmap 1)
+
+   (candy->bitmap 3)
+
+   (candy->bitmap 8)
+
+So it always produces the same tile because we don't use the
+:code:`number` argument. Here's how we get the number in the file
+name.
+
+In the code that follows we've highlighted the new code in yellow.
+
+.. code-block:: racket
+   :emphasize-lines: 2,3,4
+
+   (define (candy->bitmap number)
+	  (bitmap/file (string-append "images/"
+	                              (number->string number)
+				      ".png")))
+
+Again, run your code, then in the REPL try these lines out again --
+now it works:
+
+.. code:: racket
+
+   (candy->bitmap 1)
+
+   (candy->bitmap 3)
+
+   (candy->bitmap 8)
+
+Using `map` to draw lots of candy
+.................................
+
+So we have our list of candy `(list 1 2 3 4 5 6 7 8)`, and a functions
+to get the bitmap. We've seen how we take one value (one piece of
+candy) and get the bitmap or position, but how do we do this for a
+list?
+
+Using `map`. This function takes a function and a list and applies the
+function to every item in the list. Sounds confusing? It's actually
+easy to understand when you see it in action.
+
+Type this in the REPL:
+
+.. code-block:: racket
+
+   (map candy->bitmap (list 1 5 1 5 1 5))
+
+You should see 6 pieces of candy -- pretty cool hey? You can try
+longer lists to see what happens.
+
+From the REPL to our game code
+------------------------------
+
+Let's take what we've learnt in the REPL and add it to our game code. 
+
+First we need to create a structure to represent our world. The new
+code is highlighted yellow.
 
 .. code-block:: racket
    :emphasize-lines: 5
@@ -75,70 +180,99 @@ candy when we create our game with `big-bang`:
    :emphasize-lines: 2
 
    (big-bang
-      (world (list 1 2 3) null)
+      (world (list 1 2 3 4 5 6 7 8) null)
       (to-draw draw-world))
 
 If you run this now, you won't see anything different, that's because
 we are not drawing the world in our `draw-world` function. So let's add
-the code to do this now:
+the code to do this:
 
 .. code-block:: racket
-   :emphasize-lines: 2
+   :emphasize-lines: 1-5,8
 
+   (define (candy+scene candy scene)
+     (place-images
+      (map candy->bitmap candy)
+      ;; We need to supply positions for our images here
+      scene))
+   
    (define (draw-world w)
      (candy+scene (world-candy w) 
 		  (empty-scene (* WIDTH BSIZE)
 			       (* HEIGHT BSIZE) "black")))
 
-Run the code above to see what happens.
+We're using the function `place-images` which takes a list of images
+(which we have) and a list of positions, which we don't have. These
+positions are co-ordinates on the screen.
 
-Brackets!
-.........
+Positioning the candy
+---------------------
 
-You probably added the yellow line above and when you ran it you got an error:
+Let's start by just assuming that our world is only one line of tiles.
 
-.. code:: racket
-
-   read-syntax: expected a `)` to close `(`
-   possible cause: indentation suggests a missing `)` before line 35
-
-That's because we added another function inside `draw-world` called
-`candy+scene` (which adds candy to the scene), which uses the
-`empty-scene` as a starting point. These are nested functions and
-we're missing a bracket from the end.
-
-Nesting is when we place one thing inside another, if we draw it out
-for the code above it looks like this: 
-
-.. code::
-
-   +-------------------------------+
-   | draw-world                    |
-   |     +-----------------------+ |
-   |     | candy+scene           | |
-   |     |     +---------------+ | |
-   |     |     | empty-scene   | | |
-   |     |     +---------------+ | |
-   |     +-----------------------+ |
-   +-------------------------------+
-
-This nesting is very common in Racket, and in fact all programming languages,
-so it is good to recognise.
-
-Drawing the tiles
------------------
-
-So how do we actually draw the tiles? Let's see first if we can get one tile
-on the screen.
-
-In the REPL, type this code in:
+We can see that each tile would be 40 pixels across from the last one,
+since that's the size of each block, so here's how we can map from
+tile number to position:
 
 .. code:: racket
 
-   (bitmap/file "images/1.png")
+   (define (number->posn number)
+      (* number BSIZE))
 
-You should see a light blue tile in the REPL. You can try different numbers,
-there are tiles all the way up to 8.
+Let's try it in the REPL:
+
+.. code:: racket
+
+   (number->posn 1)
+
+   (number->posn 10)
+
+You should get results `40` and `400`. That shouldn't be too
+surprising, that function just multiplies our number by 40.
+
+As before we can use `map` to make a list of positions for our game
+world. Notice that we just use `(range 10)` here instead of
+our list of candy because we need a list of the numbers from 0
+upwards. 
+
+.. code:: racket
+
+   (map number->posn (range 10))
+
+This is just the x-position, we need the y-position too. We can use a
+struct called `posn` to do this. Add this `require` statement to the
+top of your program:
+
+.. code-block:: racket
+   :emphasize-lines: 3
+
+   (require 2htdp/universe)
+   (require 2htdp/image)
+   (require lang/posn)
+
+Now we can update our function:
+
+.. code-block:: racket
+   :emphasize-lines: 2
+
+   (define (number->posn number)
+      (make-posn (* number BSIZE) 0))
+
+Let's try it in the REPL: ::
+
+   (map number->posn (range 10))
+
+This is more interesting, now we see a list of: ::
+
+  (list
+   (posn 0 0)
+   (posn 40 0)
+   (posn 80 0)
+   (posn 120 0)
+  
+
+Putting it all together
+-----------------------
 
 So let's use this in our new function :code:`candy+scene`:
 
@@ -172,118 +306,11 @@ We need to do two things:
 
 We can do both these things with functions, let's work on the images first.
 
-From numbers to images
-......................
-
-So we need to turn a number into something like :code:`(bitmap/file "images/1.png")`
-
-Add this function under your :code:`world` struct:
-
-.. code:: racket
-
-   (define (candy->bitmap number)
-	  (bitmap/file "images/1.png"))
-
-Run your code, then in the REPL try this out:
-
-.. code:: racket
-
-   (candy->bitmap 1)
-
-   (candy->bitmap 3)
-
-   (candy->bitmap 8)
-
-Ah, so it always produces the same tile, that's because we don't use
-the :code:`number` argument. Here's how we get the number in the file
-name:
-
-.. code-block:: racket
-   :emphasize-lines: 2
-
-   (define (candy->bitmap number)
-	  (bitmap/file (string-append "images/" (number->string number) ".png")))
-
-Again, run your code, then in the REPL try these lines out again -- now it works: 
-
-.. code:: racket
-
-   (candy->bitmap 1)
-
-   (candy->bitmap 3)
-
-   (candy->bitmap 8)
-	  
 What position to draw each tile?
 ................................
 
-Let's start by just assuming that our world is only one line of tiles.
 
-We can see that each tile would be 40 pixels across from the last one,
-since that's the size of each block, so here's how we can map from
-tile number to position:
 
-.. code:: racket
-
-   (define (number->posn number)
-      (* number BSIZE))
-
-Let's try it in the REPL:
-
-.. code:: racket
-
-   (number->posn 1)
-
-   (number->posn 10)
-
-You should get results `40` and `400`. That shouldn't be too surprising,
-that function just multiplies our number by 40. 
-
-This is just the x-position, we need the y-position too. We can use a struct
-called `posn` to do this. Add this `require` statement to the top of your program:
-
-.. code-block:: racket
-   :emphasize-lines: 3
-
-   (require 2htdp/universe)
-   (require 2htdp/image)
-   (require lang/posn)
-
-Now we can update our function:
-
-.. code-block:: racket
-   :emphasize-lines: 2
-
-   (define (number->posn number)
-      (make-posn (* number BSIZE) 0))
-
-Let's try it in the REPL:
-
-   (number->posn 1)
-
-   (number->posn 10)
-
-This is more interesting, now we see results `(posn 40 0)` and `(posn 400 0)`.
-
-Using `map` to draw lots of candy
-.................................
-
-Almost there now! So we have our list of candy `(list 1 2 3)`, and two
-functions to get the bitmap and position. We've seen how we take one
-value (one piece of candy) and get the bitmap or position, but how do
-we do this for a list?
-
-Using `map`. This function takes a function and a list and applies the
-function to every item in the list. Sounds confusing? It's actually
-easy to understand when you see it in action.
-
-Type this in the REPL:
-
-.. code-block:: racket
-
-   (map candy->bitmap (list 1 5 1 5 1 5))
-
-You should see 6 pieces of candy -- pretty cool hey?
 
 What about the positions? What do we use here? Well we just need a
 list of numbers starting at zero and increasing by one each
