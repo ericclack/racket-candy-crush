@@ -125,9 +125,9 @@ First meet the function `random`, try these in the REPL:
    (random 1 9)
 
 Next meet function `build-list`, this will call a function a set
-number of times and make a list from the results. So we can
-define a new function to generate a random tile, try this in the
-REPL:
+number of times and make a list from the results. So we can define a
+new function to generate a random tile and call this repeatedly to
+make our grid of candy. Try this in the REPL:
 
 .. code:: racket
 
@@ -144,7 +144,8 @@ Here's it working in the REPL:
 
    (build-list 50 random-tile)
 
-So now we can use this to generate a game world full of tiles:
+So now we can use this to generate a game world full of tiles. Update
+your code like so: 
 
 .. code-block:: racket
    :emphasize-lines: 1,3,4
@@ -190,7 +191,7 @@ the end of the last line.
 					     (* HEIGHT BLOCK-SIZE) "black"))))
 
 We can now define the new `cursor+scene` function to place the
-cursor. This is nice and simple because we've only one bitmap to
+cursor. This is fairly simple because we've only one bitmap to
 place. Add this function:
 
 .. code-block:: racket
@@ -267,4 +268,12 @@ Finally we need to hook this up to our `big-bang` function:
      (on-key move-cursor))
 
 Test out your code, you can now move your cursor, including off the
-screen! 
+screen! We'll fix that soon.
+
+Coming soon:
+
+- Swapping tiles
+- Matching tiles
+- and quite a bit more.
+
+  

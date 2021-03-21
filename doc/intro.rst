@@ -3,6 +3,9 @@
 Intro to Racket
 ===============
 
+Let's try some things out now so that you can get a little familiar
+with the Racket programming language.
+
 
 A little introduction to Racket
 -------------------------------
@@ -10,9 +13,6 @@ A little introduction to Racket
 Start up DrRacket and you'll see two panels. On the left side you can
 write your program and on the right side you have a REPL (pronounced
 repple) where you can try things out.
-
-So let's try some things out now so that you can get a little familiar
-with Racket.
 
 At the top of the REPL panel you'll see something like this:
 

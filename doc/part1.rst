@@ -112,7 +112,7 @@ then in the REPL try this out:
 
 So it always produces the same tile because we don't use the
 :code:`number` argument. Here's how we get the number in the file
-name.
+name using the `format` function.
 
 In the code that follows we've highlighted the new code in yellow. Be
 careful to put all those closing brackets in on the last line.
@@ -153,7 +153,7 @@ Type this in the REPL:
    (map candy->bitmap (list 1 5 1 5 1 5))
 
 You should see 6 pieces of candy -- pretty cool hey? You can try
-longer lists to see what happens.
+longer lists and different numbers to see what happens.
 
 From the REPL to our game code
 ------------------------------
@@ -173,7 +173,8 @@ code is highlighted yellow.
    (struct world (candy cursor))
 
 So our world is some `candy` and a `cursor`. Now we can add a list of
-candy when we create our game with `big-bang`:
+candy when we create our game with `big-bang`, and we'll use `null` for
+the cursor position for now because we're not ready to draw it:
    
 .. code-block:: racket
    :emphasize-lines: 2
@@ -183,8 +184,8 @@ candy when we create our game with `big-bang`:
       (to-draw draw-world))
 
 If you run this now, you won't see anything different, that's because
-we are not drawing the world in our `draw-world` function. So let's add
-the code to do this.
+we are not drawing the candy or the cursor in our `draw-world`
+function. So let's add the code to draw the candy.
 
 First add a new function above `draw-world`:
 
@@ -219,7 +220,7 @@ Let's start by just assuming that our world is only one line of tiles.
 
 We can see that each tile would be 40 pixels across from the last one,
 since that's the size of each block, so here's how we can map from
-tile number to position:
+tile number to position -- add this function to your code:
 
 .. code:: racket
 
@@ -235,7 +236,8 @@ Let's try it in the REPL:
    (number->posn 10)
 
 You should get results `40` and `400`. That shouldn't be too
-surprising, that function just multiplies our number by 40.
+surprising, that function just multiplies our number by `BSIZE` which
+is 40.
 
 As before we can use `map` to make a list of positions for our game
 world. Notice that we just use `(range 10)` here instead of
@@ -282,7 +284,8 @@ This is more interesting, now we see a list of: ::
 Putting it all together
 -----------------------
 
-So let's finish our function :code:`candy+scene`. Change your function to the following:
+So let's finish our function :code:`candy+scene`. Change your function
+to the following:
 
 .. code-block:: racket
    :emphasize-lines: 4
@@ -304,6 +307,6 @@ function:
    (big-bang (world (list 1 2 3 4 5 6 7 8) null)            
             (to-draw draw-world))
 
-Lots of candy!
-		    
-In :ref:`part2` we'll make a grid of tiles and add the moving cursor. 
+
+When you are ready head over to :ref:`part2` and we'll make a grid of
+tiles and add the moving cursor.

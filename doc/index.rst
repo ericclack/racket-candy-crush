@@ -12,18 +12,23 @@ programming language.
 .. image:: images/racket-candy-crush.png
    :width: 400
 
+This tutorial is based on the `PygameZero Candy Crush tutorial`_ I wrote. 
+	   
 Install Racket
 --------------
 
-Download and install Racket from the official website: https://download.racket-lang.org/
+Download and install Racket from the official website:
+https://download.racket-lang.org/
 
 Download the images
 -------------------
 
 Download the tutorial images by |location_link|. You can close that
-page once the download finishes. Make a directory for your game and
-copy the images from the **images.zip** file you just downloaded into
-this directory.
+page once the download finishes.
+
+Make a directory for your game and copy all the images from the
+**images.zip** file you just downloaded into a directory called images
+in your game directory.
 
 .. |location_link| raw:: html
 
@@ -55,4 +60,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-  
+.. _PygameZero Candy Crush Tutorial: https://pygamezero-candy.readthedocs.io/
