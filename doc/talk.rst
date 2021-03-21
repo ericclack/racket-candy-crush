@@ -137,31 +137,121 @@ Racket
 Let's see how this works in Racket. In the tutorial we use the REPL
 a fair bit to try out ideas before writing code in our program. 
 
-Starting with candy1a.rkt.
+Starting with candy1a.rkt and candy2c.rkt in another tab:
 
+- our empty game world -- more code than Python
 - single image -- with `bitmap/file`
 - numbers to images -- add function `candy->bitmap`
-- see our world as a list of tiles
+- see our world as a list of tiles -- (list 1 2 3 4 ...)
 - use map to make it
 
 See how we can do so much in the REPL to try ideas before writing
 code into our program?
 
 
-Another look at the REPL
-------------------------
+More stuff in the REPL
+......................
 
-Try something that works in both:
-- what?
+Looking ahead to a later version of our game world we can
+do some pretty cool things in the REPL.
 
-Now for something more interesting: 
+We can draw our world::
+
+  (draw-world (world (list 1 2 3) (make-posn 0 0)))
+
+We can test functions, like this one that moves the cursor::
   
-- Try to run draw() in python
-- Do same in Racket :) 
+  (move-posn (make-posn 5 5) -1 0)
+
+We can make lists and draw them::
   
+  (draw-world (world (make-list 100 5) (make-posn 1 2)))
+
+Or even::
+  
+  (draw-world (world
+               (flatten (map cons
+                             (make-list 50 1)
+                             (make-list 50 5)))
+               (make-posn 1 2)))
+
+So because most of the functions in our game are pure functions,
+that is they transform an input to an output and don't have any
+side effects, we can test them out in the REPL.
+  
+
+What's good about Racket?
+-------------------------
+
+There's several things that I think make it a great language
+to learn to program in.
+
+Consistency: Everything looks like this::
+
+  (fn a b c d e)
+
+Functions just convert some input thing to a new output thing. They
+are easy to understand because there are no side effects.
+
+Functions can return images, which appear in the REPL. 
+
+Test as you go: you can run almost any part of your program in the
+REPL because most functions are pure so you don't need to set up any
+state.
+
+So in my mind this is the number one reason to learn Racket: 
+
+  You've got a much better chance of understanding how code works, by
+  working on little functions that do simple things that you can test
+  for yourself in the REPL.
+
+But! You need to know the Racket (or Scheme) way, and a Racket tutor!
+
+
+Questions
+---------
+
+Writing this talk has raised lots of questions, for example:
+
+- Have I been fair on Python?
+- 
+  - - Can we have the REPL available when running our game? 
+
+Thank you for watching. I hope this has got you thinking: why learn
+and why teach Racket.
+
+I would love to hear what you think! 
+
+I will publish this tutorial soon on Read the Docs. It is on github
+already -- my id is just my name ericclack.
+
+ 
+
+.. _Python Candy Crush Tutorial: https://pygamezero-candy.readthedocs.io/en/latest/
+.. _Racket Candy Crush Tutorial: https://github.com/ericclack/racket-candy-crush/blob/master/doc/index.rst
+
+
+---------
+
+
+More thoughts
+-------------
+
+Kids at the club are really motivated to learn to program. They know
+when they are ready to step up from Scratch. When they see the game
+tutorials they really want to create Candy Crush, Flappy Bird, etc.
+
+They love quick results with little code.
+
+They don't often understand what they are doing, but copy code seems
+to work.
+
+Making that leap from copying to understanding is really hard -- many
+don't make it. We see this when things don't work. 
+
 
 Some more observations on Python
---------------------------------
+................................
 
 Brackets, commas, quotes are confusing. They've not seen these things
 before in Scratch.
@@ -179,40 +269,18 @@ However, some kids do get there and get to the point where they
 can make their own games and mentor other kids.
 
 
-What we know
-------------
+More on Racket
+..............
 
-Kids at the club are really motivated to learn to program. They know
-when they are ready to step up from Scratch. When they see the game
-tutorials they really want to create Candy Crush, Flappy Bird, etc.
-
-They love quick results with little code.
-
-They don't often understand what they are doing, but copy code seems
-to work.
-
-Making that leap from copying to understanding is really hard -- many
-don't make it. We see this when things don't work. 
-
-
-What's seems nice about Racket?
--------------------------------
-
-Everything looks like this::
-
-  (fn a b c d e)
-
-Functions just convert some input thing to a new output thing. They
-are easy to understand because there are no side effects.
-
-Functions can return images, which appear in the REPL. 
-
-Test as you go: you can run almost any part of your program in the
-REPL because most functions are pure so you don't need to set up any
-state.
+Some other advantages: 
 
 Map and filter seem simpler ways to think about processing lists
 than loops. 
+
+- There's less new stuff (syntax elements) to take in when moving from
+  Scratch.
+- A more natural way to deal with lists of things.
+- You can take what you learn to other languages.
 
 And what seems challenging?
 ...........................
@@ -225,43 +293,10 @@ maths. Although there's no confusion with BODMAS for complex
 expressions.
 
 Compared with Pygame Zero there is a bit more set up code. 
-
-So why learn Racket?
---------------------
-
-In my mind the number one reason is this:
-
-With Racket you've got a much better chance of understanding how
-code works, by working on little functions that do simple things
-that you can easy test for yourself in the REPL.
-
-But! You need to know the Racket (Scheme) way. And a Racket tutor!
   
-Some other advantages: 
 
-- There's less new stuff (syntax elements) to take in when moving from
-  Scratch.
-- A more natural way to deal with lists of things.
-- You can take what you learn to other languages.
+Questions
+.........
 
-The challenges
-..............
+Can we have the REPL available whilst running the game in Racket? 
 
-Who can teach you?
-
-Pros and cons of being a programming polygot. More work, broader
-understanding of the conceps.
-
-What next?
-----------
-
-Tell me what you think! 
-
-I'll publish this tutorial soon, you can see it on github my id is my name ericclack.
-
-Will I try it at Coder Dojo?
-
-What about the case for professional programmers to try it?
-
-.. _Python Candy Crush Tutorial: https://pygamezero-candy.readthedocs.io/en/latest/
-.. _Racket Candy Crush Tutorial: https://github.com/ericclack/racket-candy-crush/blob/master/doc/index.rst

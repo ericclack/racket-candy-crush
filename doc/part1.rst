@@ -118,12 +118,10 @@ In the code that follows we've highlighted the new code in yellow. Be
 careful to put all those closing brackets in on the last line.
 
 .. code-block:: racket
-   :emphasize-lines: 2,3,4
+   :emphasize-lines: 2
 
    (define (candy->bitmap number)
-	  (bitmap/file (string-append "images/"
-	                              (number->string number)
-				      ".png")))
+	  (bitmap/file (format "images/~a.png" number)))
 
 Again, run your code, then in the REPL try these lines out again --
 now it works:

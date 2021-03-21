@@ -6,6 +6,12 @@
 Welcome to Racket Candy Crush Tutorial!
 =======================================
 
+In this tutorial we're going to create a Candy Crush clone using the Racket
+programming language.
+
+.. image:: images/racket-candy-crush.png
+   :width: 400
+
 Install Racket
 --------------
 
@@ -31,7 +37,6 @@ Start the tutorial
    :maxdepth: 2
    :caption: Contents:
 
-   why
    intro
    part1
    part2

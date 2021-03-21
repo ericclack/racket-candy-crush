@@ -10,7 +10,7 @@
 (struct world (candy cursor))
 
 (define (candy->bitmap number)
-  (bitmap/file (string-append "images/" (number->string number) ".png")))
+  (bitmap/file (format "images/~a.png" number)))
 
 (define (number->posn number)
   (make-posn (* BSIZE number) 0))
